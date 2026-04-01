@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>샌즈 | SANS</title>
+    <style>
+        /* 폰트 및 기본 배경 설정 */
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .container {
+            border: 4px solid #fff;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            letter-spacing: 5px;
+        }
+
+        .stats {
+            text-align: left;
+            margin: 20px 0;
+            font-size: 1.2rem;
+            display: inline-block;
+        }
+
+        .stats span {
+            color: #ff0000; /* 체력은 빨간색 */
+        }
+
+        .description {
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: #ccc;
+        }
+
+        /* 샌즈의 핵심: 회피(Dodge) 애니메이션 */
+        .dodge-box {
+            display: inline-block;
+            transition: transform 0.1s ease-out;
+            cursor: pointer;
+        }
+
+        .dodge-box:hover {
+            /* 마우스를 갖다 대면 옆으로 슥 피함 */
+            transform: translateX(150px);
+        }
+
+        .blue-eye {
+            color: #00fbff;
+            text-shadow: 0 0 10px #00fbff;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: #555;
+        }
+
+        /* 버튼 스타일 */
+        .btn {
+            background: none;
+            border: 2px solid #fff;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: #fff;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="dodge-box">
+            <h1>SANS</h1>
+            <p class="blue-eye">●</p>
+        </div>
+
+        <div class="stats">
+            <p>HP: <span>1 / 1</span></p>
+            <p>ATK: 1 (KR)</p>
+            <p>DEF: 1</p>
+            <p>설명: 가장 쉬운 적. 1데미지만 줄 수 있음.</p>
+        </div>
+
+        <p class="description">
+            헤이. 난 샌즈. 해골 샌즈야.<br>
+            지상으로 가고 싶다고? <br>
+            ...글쎄, <strong>끔찍한 시간</strong>을 보내고 싶은 건 아니겠지?
+        </p>
+
+        <a href="https://github.com/ticko34" class="btn">GITHUB 방문하기</a>
+
+        <div class="footer">
+            * 그냥 서서 공격을 맞아줄 정도로 멍청하진 않아.
+        </div>
+    </div>
+
+</body>
+</html>
