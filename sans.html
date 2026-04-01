@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>샌즈 | SANS</title>
+    <title>SANS | 심판의 시간</title>
     <style>
-        /* 폰트 및 기본 배경 설정 */
+        /* 기본 테마: 언더테일 다크 모드 */
         body {
             background-color: #000;
             color: #fff;
@@ -18,105 +18,147 @@
             overflow: hidden;
         }
 
+        /* 메인 컨테이너 */
         .container {
             border: 4px solid #fff;
-            padding: 40px;
-            max-width: 500px;
-            width: 90%;
+            padding: 50px 30px;
+            width: 400px;
             text-align: center;
             position: relative;
+            background-color: #000;
+        }
+
+        /* 샌즈 캐릭터 영역 (이 영역에 마우스가 닿으면 반응) */
+        .sans-hitbox {
+            display: inline-block;
+            margin-bottom: 20px;
+            cursor: crosshair; /* 조준점 모양으로 변경 */
+        }
+
+        .sans-sprite {
+            transition: transform 0.1s ease-out;
+            display: inline-block;
         }
 
         h1 {
-            font-size: 3rem;
-            margin-bottom: 10px;
-            letter-spacing: 5px;
+            font-size: 3.5rem;
+            margin: 0;
+            letter-spacing: 10px;
+            text-shadow: 2px 2px #555;
         }
 
-        .stats {
-            text-align: left;
-            margin: 20px 0;
-            font-size: 1.2rem;
-            display: inline-block;
+        /* 샌즈의 파란 눈 효과 */
+        .eye {
+            font-size: 1.5rem;
+            color: #fff;
+            transition: all 0.2s;
         }
 
-        .stats span {
-            color: #ff0000; /* 체력은 빨간색 */
-        }
-
-        .description {
-            line-height: 1.6;
-            margin-bottom: 30px;
-            color: #ccc;
-        }
-
-        /* 샌즈의 핵심: 회피(Dodge) 애니메이션 */
-        .dodge-box {
-            display: inline-block;
-            transition: transform 0.1s ease-out;
-            cursor: pointer;
-        }
-
-        .dodge-box:hover {
-            /* 마우스를 갖다 대면 옆으로 슥 피함 */
-            transform: translateX(150px);
-        }
-
-        .blue-eye {
+        /* 공격 시(hover) 눈의 변화 */
+        .sans-hitbox:hover .eye {
             color: #00fbff;
-            text-shadow: 0 0 10px #00fbff;
+            text-shadow: 0 0 15px #00fbff, 0 0 30px #00fbff;
         }
 
-        .footer {
+        /* 능력치 */
+        .stats {
+            margin: 15px 0;
+            font-size: 1.2rem;
+            color: #fff;
+        }
+        .hp-val { color: #ff0000; font-weight: bold; }
+
+        /* 대사창 */
+        .dialogue {
+            min-height: 80px;
+            line-height: 1.6;
+            font-size: 1.1rem;
             margin-top: 20px;
-            font-size: 0.8rem;
-            color: #555;
+            padding: 10px;
+            border-top: 1px solid #333;
         }
 
-        /* 버튼 스타일 */
+        /* 버튼 */
         .btn {
-            background: none;
+            display: inline-block;
+            margin-top: 25px;
             border: 2px solid #fff;
             color: #fff;
-            padding: 10px 20px;
+            padding: 10px 25px;
             text-decoration: none;
+            transition: 0.2s;
             font-weight: bold;
-            transition: background 0.3s;
         }
 
         .btn:hover {
-            background: #fff;
+            background-color: #fff;
             color: #000;
+        }
+
+        .footer {
+            margin-top: 25px;
+            font-size: 0.8rem;
+            color: #444;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <div class="dodge-box">
-            <h1>SANS</h1>
-            <p class="blue-eye">●</p>
+        <div class="sans-hitbox" id="sansHitbox">
+            <div class="sans-sprite" id="sansSprite">
+                <h1>SANS</h1>
+                <div class="eye" id="sansEye">●</div>
+            </div>
         </div>
 
         <div class="stats">
-            <p>HP: <span>1 / 1</span></p>
-            <p>ATK: 1 (KR)</p>
-            <p>DEF: 1</p>
-            <p>설명: 가장 쉬운 적. 1데미지만 줄 수 있음.</p>
+            HP: <span class="hp-val">1</span> / 1 | ATK: 1
         </div>
 
-        <p class="description">
-            헤이. 난 샌즈. 해골 샌즈야.<br>
-            지상으로 가고 싶다고? <br>
-            ...글쎄, <strong>끔찍한 시간</strong>을 보내고 싶은 건 아니겠지?
-        </p>
+        <div class="dialogue" id="dialogueBox">
+            정말 아름다운 날이야...<br>
+            새들은 지저귀고, 꽃들은 피어나고...
+        </div>
 
-        <a href="https://github.com/ticko34" class="btn">GITHUB 방문하기</a>
+        <a href="https://github.com/ticko34" class="btn">싸운다 (GITHUB)</a>
 
-        <div class="footer">
-            * 그냥 서서 공격을 맞아줄 정도로 멍청하진 않아.
+        <div class="footer" id="footerMsg">
+            * 샌즈가 길을 막고 있다.
         </div>
     </div>
+
+    <script>
+        const hitbox = document.getElementById('sansHitbox');
+        const sprite = document.getElementById('sansSprite');
+        const dialogue = document.getElementById('dialogueBox');
+        const eye = document.getElementById('sansEye');
+        const footer = document.getElementById('footerMsg');
+
+        // 공격 시도 (마우스 오버)
+        hitbox.addEventListener('mouseenter', () => {
+            // 1. 회피 동작 (왼쪽/오른쪽 랜덤)
+            const side = Math.random() > 0.5 ? 100 : -100;
+            sprite.style.transform = `translateX(${side}px)`;
+            
+            // 2. 대사 변경 (분위기 반전)
+            dialogue.innerHTML = "<span style='color:#ff0000;'>이런 날엔 너 같은 꼬마들은...<br>지옥에서 불타버려야 해.</span>";
+            
+            // 3. 눈 깜빡임 효과 및 푸터 변경
+            footer.innerText = "* miss";
+        });
+
+        // 공격 중단 (마우스 리브)
+        hitbox.addEventListener('mouseleave', () => {
+            setTimeout(() => {
+                // 제자리로 복귀
+                sprite.style.transform = 'translateX(0)';
+                // 대사 원상복구
+                dialogue.innerHTML = "정말 아름다운 날이야...<br>새들은 지저귀고, 꽃들은 피어나고...";
+                footer.innerText = "* 샌즈가 길을 막고 있다.";
+            }, 500); // 0.5초 뒤에 원래대로
+        });
+    </script>
 
 </body>
 </html>
